@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const contactsRouter = require("./routes/api/contcts.routes");
 const authRouter = require("./routes/api/users.routes");
+const chatRouter = require("./routes/api/chat.routes")
 
 const PORT = process.env.PORT || 8080; 
 
@@ -19,13 +20,15 @@ app.use(cookieParser());
 
 app.use("/api/contacts", contactsRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/chat", chatRouter);
 
 
 const server = http.createServer(app);
 const io = new Server(server, {
       cors: {
             origin: "http://localhost:3000",
-            methods: ["GET", "POST"]
+            methods: ["GET", "POST"], 
+            credentials: true
       }
 });
 

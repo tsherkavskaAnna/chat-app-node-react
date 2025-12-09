@@ -5,7 +5,7 @@ const ctrlWrapper = require('../../helpers/controlWrapper');
 
 const getAllContacts = async (req, res) => {
       const contacts = await Contact.find({ owner: req.user._id });
-      return res.status(201).json({
+      return res.json({
             status: "success",
             code: 200,
             data: { contacts }
@@ -19,7 +19,7 @@ const createnNewContact = async (req, res) => {
             owner: req.user._id
       });
       
-            return res.status(201).json({
+            return res.json({
                   status: "success",
                   code: 201,
                   message: "new contact created",
@@ -38,7 +38,7 @@ const updateContact = async (req, res) => {
             if (!contact) {
                  throw  HttpError(404, "Not found contact");   
             }
-            return res.status(201).json({
+            return res.json({
                   status: "success",
                   code: 200,
                   message: "Contact updated",
@@ -57,7 +57,7 @@ const deleteContact = async (req, res) => {
                   throw HttpError(404, "Not found contact");
                   
             }
-            return res.status(201).json({
+            return res.json({
                   status: "success",
                   code: 200,
                   message: "Contact deleted",

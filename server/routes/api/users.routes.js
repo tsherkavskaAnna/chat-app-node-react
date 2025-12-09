@@ -5,7 +5,6 @@ const { validateBody, authorized } = require('../../middleware');
 
 
 const ctrl = require ("../../controllers/auth/users.controller.js");
-const { AutoEncryptionLoggerLevel } = require('mongodb');
 
 
 router.get('/', authorized , ctrl.getAllUsers)
