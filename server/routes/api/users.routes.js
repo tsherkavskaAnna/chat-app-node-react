@@ -1,22 +1,26 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const schemas = require('../../schemas/users/addUserSchema');
-const { validateBody, authorized } = require('../../middleware');
+const schemas = require("../../schemas/users/addUserSchema");
+const { validateBody, authorized } = require("../../middleware");
 
+const ctrl = require("../../controllers/auth/users.controller.js");
+const { uploadAvatar } = require("../../middleware/uploadAvatar");
 
-const ctrl = require ("../../controllers/auth/users.controller.js");
+router.get("/", authorized, ctrl.getAllUsers);
 
+router.post("/register", validateBody(schemas.addUserSchema), ctrl.register);
 
-router.get('/', authorized , ctrl.getAllUsers)
+router.post("/login", validateBody(schemas.addLoginUserSchema), ctrl.login);
 
-router.post('/register', validateBody(schemas.addUserSchema), ctrl.register);
+router.get("/current", authorized, ctrl.getCurrentUser);
 
-router.post('/login', validateBody(schemas.addLoginUserSchema), ctrl.login);
+router.patch(
+  "/current",
+  authorized,
+  uploadAvatar.single("image"),
+  ctrl.updateUser
+);
 
-router.get('/current', authorized, ctrl.getCurrentUser);
-
-router.post('/logout', ctrl.logout)
-
-
+router.post("/logout", ctrl.logout);
 
 module.exports = router;

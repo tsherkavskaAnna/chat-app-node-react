@@ -1,18 +1,27 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const schemas = require('../../schemas/contacts/addSchema');
-const { validateBody, authorized } = require('../../middleware');
+const schemas = require("../../schemas/contacts/addSchema");
+const { validateBody, authorized } = require("../../middleware");
 
-const ctrl = require ("../../controllers/contacts/contacts.controller.js");
+const ctrl = require("../../controllers/contacts/contacts.controller.js");
+const { uploadContactImage } = require("../../middleware/uploadAvatar.js");
 
+router.get("/", authorized, ctrl.getAllContacts);
 
-router.get('/', authorized, ctrl.getAllContacts)
+router.post(
+  "/",
+  authorized,
+  validateBody(schemas.addSchema),
+  ctrl.createnNewContact
+);
 
-router.post('/', authorized, validateBody(schemas.addSchema), ctrl.createnNewContact);
+router.patch(
+  "/:contactId",
+  authorized,
+  uploadContactImage.single("image"),
+  ctrl.updateContact
+);
 
-router.put('/:contactId', authorized, validateBody(schemas.addSchema),  ctrl.updateContact);
-
-router.delete('/:contactId', authorized, ctrl.deleteContact)
-
+router.delete("/:contactId", authorized, ctrl.deleteContact);
 
 module.exports = router;

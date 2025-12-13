@@ -1,0 +1,52 @@
+:root {
+  --font-primary: 'E-Ukraine', sans-serif;
+  --font-primary-bold: 'E-Ukraine-Bold', sans-serif;
+  --font-primary-thin: 'E-Ukraine-Thin', sans-serif;
+
+  --font-heading: 'E-UkraineHead', sans-serif;
+  --font-heading-bold: 'E-UkraineHead-Bold', sans-serif;
+  --font-heading-thin: 'E-UkraineHead-Thin', sans-serif;
+
+  --color-primary: #3a7bff;
+  --color-primary-dark: #1e4fcc;
+  --color-primary-light: #a9c7ff;
+  --color-text-dark: #1a1a1a;
+  --color-text-med: #555;
+  --color-text-light: #888;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-strong: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+body {
+  font-family: var(--font-primary);
+  background: url('../assets/images/bg-gradient.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}

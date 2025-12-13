@@ -10,6 +10,10 @@ router.get('/messages/:contactId', authorized, ctrl.getMessagesByUserId);
 
 router.post('/send/:contactId', authorized, uploadCloud.single("file"), ctrl.sendMessage);
 
+router.patch('/messages/:messageId', authorized, ctrl.editMessage);
+
+router.delete('/messages/:messageId', authorized, ctrl.deleteMessage);
+
 router.get('/all', authorized, ctrl.getAllMessages);
 
 module.exports = router;
