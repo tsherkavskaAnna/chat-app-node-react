@@ -1,9 +1,12 @@
-//import react from "react";
+import { useActionState } from 'react';
+import { registerAction } from '../actions/authActions';
 
 export default function RegisterForm() {
+  const [state, submit, isPending] = useActionState(registerAction, null);
+
   return (
     <div className="w-full content-center flex justify-center">
-      <form className="p-6 w-3/4">
+      <form className="p-6 w-3/4" action={submit}>
         <h2 className="text-2xl font-primary mb-9 text-center text-amber-400">
           Sign Up
         </h2>
@@ -18,13 +21,14 @@ export default function RegisterForm() {
             <path
               d="M3.125 13.125a4.375 4.375 0 0 1 8.75 0M10 4.375a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"
               stroke="#6B7280"
-              stroke-opacity=".6"
-              stroke-width="1.3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeOpacity=".6"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
           <input
+            name="username"
             className="w-full outline-none bg-transparent py-2.5 text-gray-600"
             type="text"
             placeholder="Username"
@@ -42,20 +46,21 @@ export default function RegisterForm() {
             <path
               d="m2.5 4.375 3.875 2.906c.667.5 1.583.5 2.25 0L12.5 4.375"
               stroke="#6B7280"
-              stroke-opacity=".6"
-              stroke-width="1.3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeOpacity=".6"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M11.875 3.125h-8.75c-.69 0-1.25.56-1.25 1.25v6.25c0 .69.56 1.25 1.25 1.25h8.75c.69 0 1.25-.56 1.25-1.25v-6.25c0-.69-.56-1.25-1.25-1.25Z"
               stroke="#6B7280"
-              stroke-opacity=".6"
-              stroke-width="1.3"
-              stroke-linecap="round"
+              strokeOpacity=".6"
+              strokeWidth="1.3"
+              strokeLinecap="round"
             />
           </svg>
           <input
+            name="email"
             className="w-full outline-none bg-transparent py-2.5 text-gray-600"
             type="email"
             placeholder="Email"
@@ -76,6 +81,7 @@ export default function RegisterForm() {
             />
           </svg>
           <input
+            name="password"
             className="w-full outline-none bg-transparent py-2.5 text-gray-600"
             type="password"
             placeholder="Password"
@@ -94,14 +100,9 @@ export default function RegisterForm() {
           </a>
         </div>
         <button className="w-full mt-8 mb-3 bg-amber-500 hover:bg-amber-600 transition-all active:scale-95 py-2.5 rounded text-white font-medium cursor-pointer">
-          Create Account
+          {isPending ? 'Loading...' : 'Sign Up'}
         </button>
-        <p className="text-center mt-4 text-gray-500">
-          Already have an account?{' '}
-          <a href="#" className="text-blue-500 underline">
-            Log In
-          </a>
-        </p>
+        {state?.error && <p className="text-red-500">{state.error}</p>}
       </form>
     </div>
   );

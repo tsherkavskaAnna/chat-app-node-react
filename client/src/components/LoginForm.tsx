@@ -1,9 +1,13 @@
 //import react from "react";
 
+import { useActionState } from 'react';
+import { loginAction } from '../actions/authActions';
+
 export default function LoginForm() {
+  const [state, submit, isPending] = useActionState(loginAction, null);
   return (
     <div className="w-full content-center flex justify-center">
-      <form className="p-6 w-3/4">
+      <form className="p-6 w-3/4" action={submit}>
         <h2 className="text-2xl font-primary mb-9 text-center text-indigo-400">
           Sign In
         </h2>
@@ -18,20 +22,21 @@ export default function LoginForm() {
             <path
               d="m2.5 4.375 3.875 2.906c.667.5 1.583.5 2.25 0L12.5 4.375"
               stroke="#6B7280"
-              stroke-opacity=".6"
-              stroke-width="1.3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeOpacity=".6"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M11.875 3.125h-8.75c-.69 0-1.25.56-1.25 1.25v6.25c0 .69.56 1.25 1.25 1.25h8.75c.69 0 1.25-.56 1.25-1.25v-6.25c0-.69-.56-1.25-1.25-1.25Z"
               stroke="#6B7280"
-              stroke-opacity=".6"
-              stroke-width="1.3"
-              stroke-linecap="round"
+              strokeOpacity=".6"
+              strokeWidth="1.3"
+              strokeLinecap="round"
             />
           </svg>
           <input
+            name="email"
             className="w-full outline-none bg-transparent py-2.5 text-gray-600"
             type="email"
             placeholder="Email"
@@ -52,6 +57,7 @@ export default function LoginForm() {
             />
           </svg>
           <input
+            name="password"
             className="w-full outline-none bg-transparent py-2.5 text-gray-600"
             type="password"
             placeholder="Password"
@@ -70,8 +76,9 @@ export default function LoginForm() {
           </a>
         </div>
         <button className="w-full mt-8 mb-3 bg-indigo-500 hover:bg-indigo-600 transition-all active:scale-95 py-2.5 rounded text-white font-medium cursor-pointer">
-          Sign In
+          {isPending ? 'Loading...' : 'Sign In'}
         </button>
+        {state?.error && <p className="text-red-500">{state.error}</p>}
       </form>
     </div>
   );

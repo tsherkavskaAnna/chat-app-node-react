@@ -1,14 +1,16 @@
 /* import { useEffect, useState } from 'react';
 import { socket } from './socket'; */
-
-import LoginPage from "./pages/LoginPage";
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 
 function App() {
-
   return (
     <div className="h-screen w-full py-3.5 content-center">
-      <LoginPage/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

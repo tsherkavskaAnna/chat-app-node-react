@@ -1,21 +1,26 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-http = require('http');  
-const connectDB = require('./utils/db')
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+http = require("http");
+const connectDB = require("./utils/db");
 const { Server } = require("socket.io");
-const { setSocketIO } = require('./controllers/chat/chat.controller.js');
+const { setSocketIO } = require("./controllers/chat/chat.controller.js");
 
-require('dotenv').config(); 
+require("dotenv").config();
 
 const contactsRouter = require("./routes/api/contcts.routes");
 const authRouter = require("./routes/api/users.routes");
-const chatRouter = require("./routes/api/chat.routes")
+const chatRouter = require("./routes/api/chat.routes");
 
-const PORT = process.env.PORT || 8080; ;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -25,43 +30,40 @@ app.use("/api/chat", chatRouter);
 
 const server = http.createServer(app);
 const io = new Server(server, {
-      cors: {
-            origin: "http://localhost:5173",
-            methods: ["GET", "POST"], 
-            credentials: true
-      }
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
 });
 
-io.on('connection', (socket) => {
-      console.log('a user connected');
-      socket.on('send_message', (data) => {
-    io.emit('receive_message', data);
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("send_message", (data) => {
+    io.emit("receive_message", data);
   });
 
-
-      socket.on('disconnect', () => {
-            console.log('user disconnected');
-      });
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
 });
 
 setSocketIO(io);
 
-app.get('/', (req, res) => {
-      res.send('Hello World!')
-})
-
-app.use((req, res) => {
-  res.status(404).json({ message: 'Not found' })
-})
-
-app.use((err, req, res, next) => {
-      const { status = 500, message = "Server error" } = err;
-      res.status(status).json({ message, })
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
-server.listen((PORT), () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      connectDB();
-})
+app.use((req, res) => {
+  res.status(404).json({ message: "Not found" });
+});
 
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
+});
 
+server.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  connectDB();
+});

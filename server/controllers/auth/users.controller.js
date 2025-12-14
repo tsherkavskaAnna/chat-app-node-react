@@ -26,13 +26,19 @@ const registerUser = async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const avatar = gravatar.url(email);
+  const avatarImage = req.file ? req.file.path : "";
 
   const user = await User.create({
     username,
     email,
     password: hashedPassword,
-    avatarImage: avatar,
+    avatarImage: avatarImage,
+  });
+
+  const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "24h" });
+  res.cookie("token", token, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
   });
 
   return res.status(201).json({
@@ -63,8 +69,8 @@ const loginUser = async (req, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    sameSite: "lax",
+    secure: false,
     maxAge: 24 * 60 * 60 * 1000,
   });
 
