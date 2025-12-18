@@ -24,27 +24,3 @@ export default function WelcomeAnimated() {
     </>
   );
 }
-
-{
-  /* <motion.h1
-  initial={{ opacity: 0, y: -20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, delay: 0.2 }}
-  className="text-5xl font-bold bg-linear-to-r from-purple-500 to-indigo-400 text-transparent bg-clip-text"
->
-  Welcome
-</motion.h1>
-    </>
-    <motion.div
-      initial={{ opacity: 0, y: -40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
-      className="flex flex-col items-center gap-2"
-    >
-      <img src={Logo} alt="logo" className="w-18 h-18 object-contain" />
-
-      <h1 className="text-4xl font-bold bg-linear-to-r from-purple-500 to-indigo-400 text-transparent bg-clip-text">
-        Welcome
-      </h1>
-    </motion.div> */
-}

@@ -16,7 +16,7 @@ export default function LoginForm() {
 
   return (
     <div className="w-full content-center flex justify-center">
-      <form className="p-6 w-3/4" action={submit}>
+      <form className="lg:p-6 p-3 w-full lg:w-3/4" action={submit}>
         <h2 className="text-2xl font-primary mb-9 text-center text-indigo-400">
           Sign In
         </h2>
@@ -75,7 +75,21 @@ export default function LoginForm() {
         </div>
         <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
           <div className="flex items-center gap-2">
-            <input className="h-5" type="checkbox" id="checkbox" />
+            <input
+              type="checkbox"
+              id="checkbox"
+              className="relative appearance-none h-4 w-4 border border-slate-300 rounded-sm
+             checked:bg-indigo-500 checked:border-indigo-500
+             focus:outline-none cursor-pointer
+             checked:after:content-['✓']
+             checked:after:absolute
+             checked:after:text-white
+             checked:after:text-xs
+             checked:after:top-1/2
+             checked:after:left-1/2
+             checked:after:-translate-x-1/2
+             checked:after:-translate-y-1/2"
+            />
             <label className="text-sm" htmlFor="checkbox">
               Remember me
             </label>

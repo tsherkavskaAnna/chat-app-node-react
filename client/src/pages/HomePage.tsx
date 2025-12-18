@@ -8,9 +8,9 @@ import LoginForm from '../components/LoginForm';
 export default function HomePage() {
   const [showLoggetIn, setShowLoggetIn] = useState(false);
   return (
-    <div className="min-h-screen flex justify-center items-center px-4">
-      <div className="grid grid-cols-2 min-h-[70vh] w-[75vw] border border-white rounded-2xl shadow-xl">
-        <div className="flex flex-col justify-center items-center bg-white backdrop-blur-sm p-6 rounded-l-2xl">
+    <div className="min-h-screen flex justify-center items-center md:px-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-screen md:h-[70vh] md:w-[75vw] border border-white md:rounded-2xl shadow-xl">
+        <div className="flex flex-col justify-center items-center bg-white backdrop-blur-sm p-6 md:rounded-2xl xl:rounded-l-2xl xl:rounded-r-none">
           <WelcomeAnimated />
           {showLoggetIn ? <LoginForm /> : <RegisterForm />}
           <div className="text-center mt-4">
@@ -27,11 +27,11 @@ export default function HomePage() {
             </button>
           </div>
         </div>
-        <div className="relative w-full h-full rounded-r-2xl bg-withe/50 backdrop-blur-lg ">
+        <div className="relative hidden md:rounded-r-2xl bg-withe/50 backdrop-blur-lg xl:block">
           <img
             src={Image}
             alt="girl-with-phone"
-            className="w-full h-full object-cover opacity-90 rounded-r-2xl"
+            className="w-full h-full object-cover opacity-90 md:rounded-r-2xl"
           />
         </div>
       </div>

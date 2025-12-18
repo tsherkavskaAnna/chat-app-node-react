@@ -4,8 +4,8 @@ import { forgotPasswordAction } from '../actions/authActions';
 const ForgotPassword = () => {
   const [state, submit, isPending] = useActionState(forgotPasswordAction, null);
   return (
-    <div className="h-screen w-full flex justify-center items-center">
-      <div className="w-1/3 grid place-items-center shadow-2xl bg-white h-52 rounded-2xl px-10">
+    <div className="h-screen w-full flex justify-center items-center px-4">
+      <div className="w-full md:w-1/2 2xl:w-1/3 grid place-items-center shadow-2xl bg-white h-52 rounded-2xl md:px-10 px-4">
         <form className="grid-cols-1 gap-4 w-full" action={submit}>
           <div className="flex items-center my-2 border bg-indigo-500/5 border-gray-500/10 rounded gap-3 pl-2 hover:bg-indigo-500/20">
             <svg

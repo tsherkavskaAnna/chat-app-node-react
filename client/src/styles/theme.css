@@ -37,7 +37,6 @@ body {
   background-size: cover;
   background-position: center;
   opacity: 0.9;
-  color: var(--color-text);
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;

@@ -9,7 +9,7 @@ import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
-    <div className="h-screen w-full py-3.5">
+    <div className="h-screen w-full">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
