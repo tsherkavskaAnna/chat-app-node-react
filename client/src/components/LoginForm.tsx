@@ -1,18 +1,19 @@
-//import react from "react";
-
 import { useActionState, useEffect } from 'react';
 import { loginAction } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
+import useAuthStore from '../store/authStore';
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const [state, submit, isPending] = useActionState(loginAction, null);
+  const checkAuth = useAuthStore((state) => state.checkAuth);
 
   useEffect(() => {
     if (state?.success) {
+      checkAuth();
       navigate('/dashboard');
     }
-  }, [state?.success, navigate]);
+  }, [state, checkAuth, navigate]);
 
   return (
     <div className="w-full content-center flex justify-center">
@@ -46,7 +47,7 @@ export default function LoginForm() {
           </svg>
           <input
             name="email"
-            className="w-full outline-none bg-transparent py-2.5 text-gray-600"
+            className="w-full outline-none bg-transparent py-2.5 text-gray-600 "
             type="email"
             placeholder="Email"
             required

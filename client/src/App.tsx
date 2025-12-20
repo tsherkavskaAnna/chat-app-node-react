@@ -6,8 +6,17 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPasswordForm from './components/ResetPasswordForm';
 import VerifyEmailPage from './components/VerifyEmailPage';
 import Dashboard from './pages/Dashboard';
+import ProtectedRoute from './context/ProtectedRoute';
+import useAuthStore from './store/authStore';
+import { useEffect } from 'react';
 
 function App() {
+  const checkAuth = useAuthStore((state) => state.checkAuth);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
   return (
     <div className="h-screen w-full">
       <BrowserRouter>
@@ -22,7 +31,14 @@ function App() {
             path="/reset-password/:token"
             element={<ResetPasswordForm />}
           />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

@@ -29,7 +29,7 @@ export default function RegisterForm() {
           </svg>
           <input
             name="username"
-            className="w-full outline-none bg-transparent py-2.5 text-gray-600"
+            className="w-full outline-none bg-transparent py-2.5 text-gray-600 text-heading placeholder:text-gray-400"
             type="text"
             placeholder="Username"
             required

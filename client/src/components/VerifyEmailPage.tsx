@@ -1,9 +1,11 @@
 import { useActionState, useEffect } from 'react';
 import { verifyEmailAction } from '../actions/authActions';
 import { useNavigate, useParams } from 'react-router-dom';
+import useAuthStore from '../store/authStore';
 
 export default function VerifyEmailPage() {
   const navigate = useNavigate();
+  const checkAuth = useAuthStore((state) => state.checkAuth);
   const { veryficationCode } = useParams<{ veryficationCode: string }>();
   const [state, submit, isPending] = useActionState(
     (prevState: unknown, formData: FormData) =>
@@ -13,9 +15,10 @@ export default function VerifyEmailPage() {
 
   useEffect(() => {
     if (state?.success) {
+      checkAuth();
       setTimeout(() => navigate('/dashboard'), 2500);
     }
-  }, [state, navigate]);
+  }, [state, checkAuth, navigate]);
   return (
     <div className="h-screen w-full flex justify-center items-center px-4">
       <div className="w-full md:w-1/2 2xl:w-1/3 grid place-items-center shadow-2xl bg-white h-52 rounded-2xl md:px-10 px-4">

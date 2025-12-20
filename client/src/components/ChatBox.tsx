@@ -1,12 +1,10 @@
-import React from 'react';
-
 export default function ChatBox() {
   return (
-    <div className="bg-blue-50 h-screen">
-      <div className="h-24 border-b-2 border-slate-300 p-6">
+    <div className="bg-slate-200 rounded-tr-2xl">
+      <div className="h-24 border-b-2 border-slate-300 p-6 ">
         Contact section
       </div>
-      <div className="bg-slate-50 h-full p-6">Message section</div>
+      <div className="bg-white p-6 h-full">Message section</div>
     </div>
   );
 }

@@ -1,0 +1,24 @@
+import { urlBackend } from '../utils/baseUrl';
+
+export async function getCurrentUser() {
+  const res = await fetch(`${urlBackend}/api/auth/current`, {
+    credentials: 'include',
+  });
+
+  if (!res.ok) return null;
+  return res.json();
+}
+
+export async function updateCurrentUser(formData: FormData) {
+  const response = await fetch(`${urlBackend}/api/auth/current`, {
+    method: 'PATCH',
+    credentials: 'include',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    return { error: error.message || 'Update user failed' };
+  }
+  return response.json().then((response) => response.data);
+}

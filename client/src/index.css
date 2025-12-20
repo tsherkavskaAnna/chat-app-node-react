@@ -1,6 +1,20 @@
-@import "tailwindcss";
-@import "./styles/fonts.css";
-@import "./styles/theme.css";
+@import 'tailwindcss';
+@import './styles/fonts.css';
+@import './styles/theme.css';
 
+/* Chrome, Edge, Safari */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #4b5563 !important; /* text-gray-600 */
+  transition: background-color 9999s ease-in-out 0s;
+}
 
-
+/* Firefox */
+input:autofill {
+  color: #4b5563 !important;
+}
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px transparent inset !important;
+}
