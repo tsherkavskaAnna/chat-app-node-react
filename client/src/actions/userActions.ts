@@ -9,6 +9,15 @@ export async function getCurrentUser() {
   return res.json();
 }
 
+export async function logout() {
+  const res = await fetch(`${urlBackend}/api/auth/logout`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+  if (!res.ok) return null;
+  return res.json();
+}
+
 export async function updateCurrentUser(formData: FormData) {
   const response = await fetch(`${urlBackend}/api/auth/current`, {
     method: 'PATCH',

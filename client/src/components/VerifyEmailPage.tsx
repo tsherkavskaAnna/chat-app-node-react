@@ -2,6 +2,7 @@ import { useActionState, useEffect } from 'react';
 import { verifyEmailAction } from '../actions/authActions';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
+import { toast } from 'react-toastify';
 
 export default function VerifyEmailPage() {
   const navigate = useNavigate();
@@ -15,8 +16,11 @@ export default function VerifyEmailPage() {
 
   useEffect(() => {
     if (state?.success) {
-      checkAuth();
-      setTimeout(() => navigate('/dashboard'), 2500);
+      (async () => {
+        await checkAuth();
+        toast.success('Email verified successfully');
+        setTimeout(() => navigate('/dashboard'), 2500);
+      })();
     }
   }, [state, checkAuth, navigate]);
   return (

@@ -1,5 +1,7 @@
-/* import { useEffect, useState } from 'react';
+/*
 import { socket } from './socket'; */
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ForgotPassword from './components/ForgotPassword';
@@ -40,6 +42,7 @@ function App() {
             }
           />
         </Routes>
+        <ToastContainer position="top-right" autoClose={3000} />
       </BrowserRouter>
     </div>
   );

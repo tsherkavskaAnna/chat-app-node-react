@@ -1,6 +1,7 @@
 import { useActionState } from 'react';
 import { resetPasswordAction } from '../actions/authActions';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function ResetPasswordForm() {
   const { token } = useParams();
@@ -10,6 +11,11 @@ export default function ResetPasswordForm() {
     },
     null
   );
+
+  if (state?.success) {
+    toast.success('Password reset with success');
+  }
+
   return (
     <div className="h-screen w-full flex justify-center items-center px-4">
       <div className="w-full md:w-1/2 2xl:w-1/3 grid place-items-center shadow-2xl bg-white h-52 rounded-2xl md:px-10 px-4">

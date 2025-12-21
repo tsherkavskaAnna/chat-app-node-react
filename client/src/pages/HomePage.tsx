@@ -12,7 +12,7 @@ export default function HomePage() {
       <div className="grid grid-cols-1 xl:grid-cols-2 w-full h-screen md:h-[70vh] md:w-[75vw] border border-white md:rounded-2xl shadow-xl">
         <div className="flex flex-col justify-center items-center bg-white backdrop-blur-sm p-6 md:rounded-2xl xl:rounded-l-2xl xl:rounded-r-none">
           <WelcomeAnimated />
-          {showLoggetIn ? <LoginForm /> : <RegisterForm />}
+          {showLoggetIn ? <RegisterForm /> : <LoginForm />}
           <div className="text-center mt-4">
             <span className={showLoggetIn ? 'text-gray-500' : 'text-slate-500'}>
               {showLoggetIn

@@ -1,5 +1,9 @@
 import { create } from 'zustand';
-import { getCurrentUser, updateCurrentUser } from '../actions/userActions';
+import {
+  getCurrentUser,
+  logout,
+  updateCurrentUser,
+} from '../actions/userActions';
 
 type User = {
   id: string;
@@ -30,7 +34,8 @@ const useAuthStore = create<AuthState>((set) => ({
     const data = await updateCurrentUser(formData);
     set({ user: data.user });
   },
-  logout: () => {
+  logout: async () => {
+    await logout();
     set({ user: null });
   },
 }));

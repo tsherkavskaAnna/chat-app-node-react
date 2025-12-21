@@ -99,11 +99,3 @@ export async function verifyEmailAction(
   const data = await response.json();
   return { success: true, message: data.message };
 }
-
-export async function logout() {
-  const res = await fetch(`${urlBackend}/api/auth/logout`, {
-    credentials: 'include',
-  });
-  if (!res.ok) return null;
-  return res.json();
-}

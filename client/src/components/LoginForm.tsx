@@ -2,6 +2,7 @@ import { useActionState, useEffect } from 'react';
 import { loginAction } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
+import { toast } from 'react-toastify';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -10,8 +11,11 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (state?.success) {
-      checkAuth();
-      navigate('/dashboard');
+      (async () => {
+        await checkAuth();
+        navigate('/dashboard');
+        toast.success('Login successful');
+      })();
     }
   }, [state, checkAuth, navigate]);
 
