@@ -29,6 +29,7 @@ export async function updateContact(contactId: string, formData: FormData) {
   const response = await fetch(`${urlBackend}/api/contacts/${contactId}`, {
     method: 'PATCH',
     credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
     body: formData,
   });
 

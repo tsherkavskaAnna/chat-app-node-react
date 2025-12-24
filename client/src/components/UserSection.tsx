@@ -1,12 +1,24 @@
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 import useAuthStore from '../store/authStore';
 import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 import UserLogo from '../assets/images/user.png';
 
 export default function UserSection() {
-  const { user, logout } = useAuthStore();
+  const { user, updateUser, logout } = useAuthStore();
+  const fileRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      updateUser(formData);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -17,13 +29,19 @@ export default function UserSection() {
   return (
     <div className="h-24 border-b-2 border-slate-300 px-2 py-3.5 bg- rounded-tl-2xl flex justify-between items-center bg-white">
       <div className="flex flex-nowrap items-center">
-        <button className="cursor-pointer">
+        <div
+          className="relative w-14 h-14 rounded-full overflow-hidden cursor-pointer group"
+          onClick={() => fileRef.current?.click()}
+        >
           <img
-            src={user?.avatarImage || UserLogo}
-            alt="user avatar"
-            className="w-14 h-14 rounded-full mr-4 border-2 border-slate-300"
+            src={user?.avatarImage ? user.avatarImage : UserLogo}
+            alt="avatar"
+            className="w-full h-full object-cover"
           />
-        </button>
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs">
+            +
+          </div>
+        </div>
         <div>
           <h1 className="text-lg font-semibold text-indigo-600">
             Welcome back
@@ -42,6 +60,13 @@ export default function UserSection() {
           <RiLogoutCircleRLine />
         </button>
       </div>
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileChange}
+      />
     </div>
   );
 }

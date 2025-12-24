@@ -31,8 +31,10 @@ const useAuthStore = create<AuthState>((set) => ({
     }
   },
   updateUser: async (formData) => {
-    const data = await updateCurrentUser(formData);
-    set({ user: data.user });
+    const updatedUser = await updateCurrentUser(formData);
+    console.log(updatedUser);
+
+    set({ user: updatedUser });
   },
   logout: async () => {
     await logout();

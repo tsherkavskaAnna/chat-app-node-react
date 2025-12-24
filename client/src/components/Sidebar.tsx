@@ -1,21 +1,13 @@
-import { useEffect } from 'react';
-import useContactsStore from '../store/contactsStore';
+import ContactsList from './ContactsList';
 import UserSection from './UserSection';
-import DefaultImage from '../assets/images/man.png';
+import { FaChevronDown } from 'react-icons/fa';
 
 export default function Sidebar() {
-  const { contacts, fetchContacts } = useContactsStore();
-  console.log(contacts);
-
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
   return (
     <div className="h-full border-r-2 border-slate-300 bg-slate-200/20">
       <UserSection />
-      <div className="h-full px-4 py-6">
-        <form className="max-w-md mx-auto">
+      <div className="h-full">
+        <form className="max-w-md mx-auto px-4 py-6">
           <label
             htmlFor="search"
             className="block mb-2.5 text-sm font-medium text-heading sr-only "
@@ -51,28 +43,11 @@ export default function Sidebar() {
           </div>
         </form>
         <div>
-          <ul className="mt-6">
-            {contacts?.map((contact) => (
-              <li
-                key={contact._id}
-                className="flex items-center justify-between mb-2 border border-slate-100 p-3 rounded-lg hover:bg-blue-300/30"
-              >
-                <div className="flex items-center justify-around">
-                  <img
-                    src={contact.image?.trim() ? contact.image : DefaultImage}
-                    alt="user avatar"
-                    className="w-14 h-14 rounded-full mr-4 border-2 border-slate-300"
-                  />
-                  <div>
-                    <h2 className="text-sm font-semibold text-slate-500">
-                      {contact.username}
-                    </h2>
-                    <p className="text-xs text-slate-500">{contact.email}</p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-nowrap items-center">
+            <p className="px-4 text-slate-500 font-bold">All Messages</p>
+            <FaChevronDown className="fill-slate-500" />
+          </div>
+          <ContactsList />
         </div>
       </div>
     </div>
