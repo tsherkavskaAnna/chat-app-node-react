@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useContactsStore from '../store/contactsStore';
-import DefaultImage from '../assets/images/man.png';
+import ContactAvatar from './ContactAvatar';
 
 export default function ContactsList() {
   const { contacts, fetchContacts } = useContactsStore();
@@ -19,12 +19,8 @@ export default function ContactsList() {
             className="flex items-center justify-between border-t-2 border-slate-300 p-3 hover:bg-blue-300/30"
           >
             <div className="flex items-center justify-around">
-              <img
-                src={contact.image?.trim() ? contact.image : DefaultImage}
-                alt="user avatar"
-                className="w-14 h-14 rounded-full mr-4 border-2 border-slate-300"
-              />
-              <div>
+              <ContactAvatar contactId={contact._id} image={contact.image} />
+              <div className="ml-3.5">
                 <h2 className="text-sm font-semibold text-slate-500">
                   {contact.username}
                 </h2>

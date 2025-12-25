@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import {
   getCurrentUser,
   logout,
@@ -19,27 +20,33 @@ type AuthState = {
   logout: () => void;
 };
 
-const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  loading: true,
-  checkAuth: async () => {
-    try {
-      const data = await getCurrentUser();
-      set({ user: data, loading: false });
-    } catch {
-      set({ user: null, loading: false });
-    }
-  },
-  updateUser: async (formData) => {
-    const updatedUser = await updateCurrentUser(formData);
-    console.log(updatedUser);
+const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      loading: true,
+      checkAuth: async () => {
+        try {
+          const data = await getCurrentUser();
+          set({ user: data, loading: false });
+        } catch {
+          set({ user: null, loading: false });
+        }
+      },
+      updateUser: async (formData) => {
+        const updatedUser = await updateCurrentUser(formData);
 
-    set({ user: updatedUser });
-  },
-  logout: async () => {
-    await logout();
-    set({ user: null });
-  },
-}));
+        set({ user: updatedUser });
+      },
+      logout: async () => {
+        await logout();
+        set({ user: null });
+      },
+    }),
+    {
+      name: 'auth-storage',
+    }
+  )
+);
 
 export default useAuthStore;

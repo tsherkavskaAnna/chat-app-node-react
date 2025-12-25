@@ -12,10 +12,16 @@ export async function getContacts() {
 }
 
 export async function createNewContact(formData: FormData) {
+  const body = {
+    fullName: formData.get('fullName'),
+    username: formData.get('username'),
+    email: formData.get('email'),
+  };
   const response = await fetch(`${urlBackend}/api/contacts`, {
     method: 'POST',
     credentials: 'include',
-    body: formData,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
@@ -29,7 +35,6 @@ export async function updateContact(contactId: string, formData: FormData) {
   const response = await fetch(`${urlBackend}/api/contacts/${contactId}`, {
     method: 'PATCH',
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
     body: formData,
   });
 

@@ -5,6 +5,7 @@ import {
   updateContact,
   deleteContact,
 } from '../actions/contactsActions';
+import { nanoid } from 'nanoid';
 
 type Contact = {
   _id: string;
@@ -35,8 +36,28 @@ const useContactsStore = create<ContactState>((set, get) => ({
     }
   },
   addContact: async (formData) => {
-    const data = await createNewContact(formData);
-    set({ contacts: [...get().contacts, data.contact] });
+    const prevContacts = get().contacts;
+    const id = nanoid();
+    const tempContact = {
+      _id: id,
+      fullName: formData.get('fullName') as string,
+      username: formData.get('username') as string,
+      email: formData.get('email') as string,
+    };
+
+    set((state) => ({
+      contacts: [...state.contacts, tempContact],
+    }));
+    try {
+      const data = await createNewContact(formData);
+      set((state) => ({
+        contacts: state.contacts.map((c) =>
+          c._id === id ? data.data.contact : c
+        ),
+      }));
+    } catch {
+      set({ contacts: prevContacts });
+    }
   },
   updateContact: async (id, formData) => {
     const prevContacts = get().contacts;
@@ -48,7 +69,9 @@ const useContactsStore = create<ContactState>((set, get) => ({
     try {
       const data = await updateContact(id, formData);
       set((state) => ({
-        contacts: state.contacts.map((c) => (c._id === id ? data.contact : c)),
+        contacts: state.contacts.map((c) =>
+          c._id === id ? data.data.contact : c
+        ),
       }));
     } catch {
       set({ contacts: prevContacts });
