@@ -31,6 +31,7 @@ export default function UserAvatar() {
           +
         </div>
       </div>
+      <div className=" relative top-5 right-4.5 bg-green-500 w-4 h-4 rounded-full"></div>
       <div>
         <input
           ref={fileRef}

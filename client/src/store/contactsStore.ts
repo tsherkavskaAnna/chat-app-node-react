@@ -17,7 +17,9 @@ type Contact = {
 type ContactState = {
   contacts: Contact[];
   loading: boolean;
+  search: string;
   fetchContacts: () => Promise<void>;
+  searchQuery: (query: string) => void;
   addContact: (formData: FormData) => Promise<void>;
   updateContact: (id: string, formData: FormData) => Promise<void>;
   removeContact: (id: string) => Promise<void>;
@@ -26,6 +28,7 @@ type ContactState = {
 const useContactsStore = create<ContactState>((set, get) => ({
   contacts: [],
   loading: true,
+  search: '',
   fetchContacts: async () => {
     set({ loading: true });
     try {
@@ -34,6 +37,9 @@ const useContactsStore = create<ContactState>((set, get) => ({
     } catch {
       set({ loading: false });
     }
+  },
+  searchQuery: (query) => {
+    set({ search: query });
   },
   addContact: async (formData) => {
     const prevContacts = get().contacts;

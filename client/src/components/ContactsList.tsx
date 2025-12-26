@@ -1,22 +1,31 @@
 import { useEffect } from 'react';
 import useContactsStore from '../store/contactsStore';
 import ContactAvatar from './ContactAvatar';
+import useChatStore from '../store/chatStore';
 
 export default function ContactsList() {
-  const { contacts, fetchContacts } = useContactsStore();
+  const { contacts, search, fetchContacts } = useContactsStore();
+  const { openChat } = useChatStore();
 
   useEffect(() => {
     fetchContacts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const filteredContacts = contacts.filter(
+    (contact) =>
+      contact.username.toLowerCase().includes(search.toLowerCase()) ||
+      contact.email.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div>
       <ul className="mt-6">
-        {contacts?.map((contact) => (
+        {filteredContacts?.map((contact) => (
           <li
             key={contact._id}
-            className="flex items-center justify-between border-t-2 border-slate-300 p-3 hover:bg-blue-300/30"
+            onClick={() => openChat(contact._id)}
+            className="flex items-center justify-between border-b-2 border-slate-300 p-3 hover:bg-blue-300/30 cursor-pointer"
           >
             <div className="flex items-center justify-around">
               <ContactAvatar contactId={contact._id} image={contact.image} />
