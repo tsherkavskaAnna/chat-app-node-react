@@ -6,8 +6,8 @@ export default function SearchContact() {
   const { search, searchQuery } = useContactsStore();
 
   return (
-    <div className="h-full">
-      <form className="max-w-md mx-auto px-4 py-6">
+    <div className="flex-1 overflow-y-auto">
+      <form className="max-w-md mx-auto px-4 py-6 w-full">
         <label
           htmlFor="search"
           className="block mb-2.5 text-sm font-medium text-heading sr-only "
@@ -44,11 +44,13 @@ export default function SearchContact() {
         </div>
       </form>
       <div>
-        <div className="flex flex-nowrap items-center">
+        <div className="flex flex-nowrap items-center mb-2">
           <p className="px-4 text-slate-500 font-bold">All Contacts</p>
           <FaChevronDown className="fill-slate-500" />
         </div>
-        <ContactsList />
+        <div className="overflow-y-auto max-h-[calc(85vh-16rem)]">
+          <ContactsList />
+        </div>
       </div>
     </div>
   );

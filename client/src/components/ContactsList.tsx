@@ -19,8 +19,8 @@ export default function ContactsList() {
   );
 
   return (
-    <div>
-      <ul className="mt-6">
+    <div className="flex-1 overflow-y-auto">
+      <ul>
         {filteredContacts?.map((contact) => (
           <li
             key={contact._id}

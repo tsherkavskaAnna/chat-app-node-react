@@ -49,6 +49,7 @@ const useChatStore = create<ChatState>((set, get) => ({
       _id: tempId,
       senderId: 'me',
       text: String(formData.get('text')),
+      fileUrl: String(formData.get('file')),
       createdAt: new Date(),
     };
 

@@ -2,9 +2,10 @@ import useChatStore from '../store/chatStore';
 import useContactsStore from '../store/contactsStore';
 import Logo from '../assets/icons/logo-chat.png';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { MdArrowBackIosNew } from 'react-icons/md';
 
 export default function ActiveContact() {
-  const { activeContactId } = useChatStore();
+  const { activeContactId, clearChat } = useChatStore();
   const { contacts } = useContactsStore();
 
   const activeContact = contacts.find((c) => c._id === activeContactId);
@@ -18,8 +19,11 @@ export default function ActiveContact() {
     );
   }
   return (
-    <div className="flex items-center h-full text-slate-500 gap-4 justify-between">
-      <div className="flex flex-nowrap justify-center items-center gap-6">
+    <div className="flex items-center h-full text-slate-500 md:gap-4 md:justify-between justify-around">
+      <button className="md:hidden text-indigo-500" onClick={clearChat}>
+        <MdArrowBackIosNew style={{ width: '24px', height: '24px' }} />
+      </button>
+      <div className="flex flex-nowrap justify-center items-center gap-2 md:gap-6">
         <img
           src={activeContact.image}
           alt="avatar"
