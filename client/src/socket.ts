@@ -1,13 +1,4 @@
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
+import { urlBackend } from './utils/baseUrl';
 
-export const socket = io("http://localhost:8000", {
-  withCredentials: true,
-});
-
-socket.on("connect", () => {
-  console.log("✅ Connected to Socket.IO server, id:", socket.id);
-});
-
-socket.on("disconnect", (reason) => {
-  console.log("❌ Disconnected:", reason);
-});
+export const socket = io(urlBackend);

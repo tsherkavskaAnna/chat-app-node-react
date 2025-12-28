@@ -1,13 +1,8 @@
 const Chat = require("../../models/Chat");
 const Message = require("../../models/Message");
-
+const { getIO } = require("../../utils/socket");
 const ctrlWrapper = require("../../helpers/controlWrapper");
 const mongoose = require("mongoose");
-
-let io;
-const setSocketIO = (socketIO) => {
-  io = socketIO;
-};
 
 //ricevere massagi di user logato con paginazione
 const getMessagesByUserId = async (req, res) => {
@@ -79,6 +74,10 @@ const sendMessage = async (req, res) => {
 
   chat.lastMessage = message._id;
   await chat.save();
+  const io = getIO();
+  if (io) {
+    io.to(chat._id.toString()).emit("receive_message", message);
+  }
 
   res.status(201).json({
     status: "success",
@@ -164,7 +163,6 @@ const getAllMessages = async (req, res) => {
 };
 
 module.exports = {
-  setSocketIO,
   getMessagesByUserId: ctrlWrapper(getMessagesByUserId),
   sendMessage: ctrlWrapper(sendMessage),
   editMessage: ctrlWrapper(editMessage),
