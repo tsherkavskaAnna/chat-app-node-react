@@ -1,8 +1,10 @@
 {
-  "rewrites": [
+  "version": 2,
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://chat-app-node-react-production.up.railway.app/api/$1"
-    }
+      "src": "/api/(.*)",
+      "dest": "https://chat-app-node-react-production.up.railway.app/api/$1"
+    },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
