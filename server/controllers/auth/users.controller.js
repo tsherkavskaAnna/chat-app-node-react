@@ -78,12 +78,12 @@ const loginUser = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
 
   res.cookie("token", token, {
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
