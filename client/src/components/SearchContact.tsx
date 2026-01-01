@@ -7,7 +7,7 @@ export default function SearchContact() {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <form className="max-w-md mx-auto px-4 py-6 w-full">
+      <form className=" mx-auto px-4 py-6 w-full">
         <label
           htmlFor="search"
           className="block mb-2.5 text-sm font-medium text-heading sr-only "

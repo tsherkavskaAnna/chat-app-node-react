@@ -7,7 +7,7 @@ export default function UserSection() {
   const { user } = useAuthStore();
 
   return (
-    <div className="h-24 border-b-2 border-slate-300 px-2 py-3.5 bg- rounded-tl-2xl flex justify-between items-center bg-white">
+    <div className="h-24 border-b-2 border-slate-300 py-3.5 bg- rounded-tl-2xl flex justify-between items-center bg-white pt-6 md:pt-0 px-4 xl:px-2">
       <div className="flex flex-nowrap items-center">
         <UserAvatar />
         <div className="flex flex-col ml-4">
